@@ -26,18 +26,12 @@ public class LoginController {
 	@Autowired
 	private UserValidator userValidator;
 	
-    @RequestMapping("/")
-    public String registerForm(@ModelAttribute("user") User user, HttpSession session) {
-    	Long id = (Long) session.getAttribute("userId");
-    	if(id != null) {
-    		return "redirect:/dashboard";
-    	}
-        return "loginRegPage.jsp";
+    
+    @GetMapping("/login")
+    public String loginRouter() {
+    	return "redirect:/";
     }
-//    @RequestMapping("/login")
-//    public String login() {
-//        return "loginRegPage.jsp";
-//    }
+	
     @GetMapping("/registration")
     public String regRouter() {
     	return "redirect:/";
@@ -62,10 +56,7 @@ public class LoginController {
     		return "redirect:/dashboard";
     	}
     }
-    @GetMapping("/login")
-    public String loginRouter() {
-    	return "redirect:/";
-    }
+
     
     @RequestMapping(value="/login", method=RequestMethod.POST)
     public String loginUser(
@@ -84,16 +75,7 @@ public class LoginController {
         	return "redirect:/";
         }
     }
-    
-//    @RequestMapping("/dashboard")
-//    public String dashboard(HttpSession session, Model model) {
-//    	Long id = (Long) session.getAttribute("userId");
-//    	if(id != null) {
-//    		return "dashboard.jsp";
-//    	} else {
-//    		return "redirect:/";
-//    	}
-//    }
+
     
     @RequestMapping("/logout")
     public String logout(HttpSession session) {

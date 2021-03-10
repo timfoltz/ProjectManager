@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -30,6 +31,8 @@ public class Task {
 		
 	@NotNull
 	private Integer priority;
+	
+	private Boolean complete;
 	
 	@Column(updatable=false)
 	private Date createdAt;
@@ -51,6 +54,13 @@ public class Task {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="team_id")
 	private Team assignedTeam;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="task_id")
+	private Task subTaskFor;
+	
+	@OneToMany(mappedBy="subTaskFor", fetch=FetchType.LAZY)
+	private List<Task> subTasks;
 
 	public Task() {
 	}
@@ -117,6 +127,30 @@ public class Task {
 
 	public void setAssignedTeam(Team assignedTeam) {
 		this.assignedTeam = assignedTeam;
+	}
+
+	public Boolean getComplete() {
+		return complete;
+	}
+
+	public void setComplete(Boolean complete) {
+		this.complete = complete;
+	}
+
+	public Task getSubTaskFor() {
+		return subTaskFor;
+	}
+
+	public void setSubTaskFor(Task subTaskFor) {
+		this.subTaskFor = subTaskFor;
+	}
+
+	public List<Task> getSubTasks() {
+		return subTasks;
+	}
+
+	public void setSubTasks(List<Task> subTasks) {
+		this.subTasks = subTasks;
 	}
 
 	@PrePersist

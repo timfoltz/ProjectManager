@@ -32,7 +32,7 @@
 	<h1>Team: <c:out value="${thisTeam.name}"/></h1><a class="list-group-item-action" 
 						style="max-width: 300px; border-radius: 10px" 
 						href="/manage/${thisTeam.id }">Manage Team</a>
-	<h3>Assigned:</h3>
+	<h3>Assigned to team:</h3>
 	<ul class="list-group">
 		<c:forEach items="${thisTeam.teamMembers}" var="tm">
 			<li class="list-group-item">
@@ -44,7 +44,7 @@
 			</li>
 		</c:forEach>
 	</ul>
-	<h3>Tasks:</h3>
+	<h3>Tasks for the team:</h3>
 	<ul class="list-group">
 		<c:forEach items="${thisTeam.assignedTasks}" var="task">
 			<li class="list-group-item">

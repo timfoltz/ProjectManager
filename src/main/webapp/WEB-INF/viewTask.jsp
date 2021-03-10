@@ -64,6 +64,31 @@
 	 <c:if test="${thisTask.assignee.contains(user)}">
 	   <a href="/completed/${thisTask.id }">Completed</a>
 	 </c:if>
+	 
+	 <h1>Create a new task</h1>
+	<form:form method="POST" action="/tasks/new" modelAttribute="task">
+	 <form:input type="hidden" value="${user.id}" path="creator"/>
+		        <p>
+		            <form:label path="name">Name:</form:label>
+		            <form:input required="true" type="text" path="name"/>
+		        </p>
+		        <p>Assigned to:
+		            <select name="assignedTeam">
+				        <c:forEach items="${teams}" var="team">
+				        	<option value="${team.id}"><c:out value="${team.name }"/></option>
+				        </c:forEach>
+ 			       </select>
+		        </p>
+		        <p>Priority: 
+		            <select name="priority">
+		            	<option value ="9">High</option>
+		            	<option value ="5">Medium</option>
+		            	<option value ="1">Low</option>
+		            </select>
+		        </p>
+		        
+		        <input type="submit" value="Create"/>
+		    </form:form>
 		 
 	
 						 
