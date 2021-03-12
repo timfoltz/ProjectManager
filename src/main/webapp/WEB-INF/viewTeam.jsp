@@ -47,13 +47,20 @@
 	<h3>Tasks for the team:</h3>
 	<ul class="list-group">
 		<c:forEach items="${thisTeam.assignedTasks}" var="task">
-			<li class="list-group-item">
-				<a class="list-group-item list-group-item-action" 
-					style="max-width: 300px; border-radius: 10px" 
-					href="/tasks/${task.id }"> 
-					<c:out value="${task.name}"/>
-				</a>
-			</li>
+			<c:if test="${task.subTaskFor ==null }">
+				<li class="list-group-item">
+					<a class="list-group-item list-group-item-action" 
+						style="max-width: 300px; border-radius: 10px" 
+						href="/tasks/${task.id }"> 
+						<c:out value="${task.name}"/>
+					</a>
+						<ul>
+							<c:forEach items="${task.subTasks}" var="s">
+								<li><c:out value="${s.name}"/>
+							</c:forEach>
+						</ul>
+				</li>
+				</c:if>
 		</c:forEach>
 	</ul>
 	

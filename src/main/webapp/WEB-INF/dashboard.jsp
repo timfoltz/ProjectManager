@@ -28,60 +28,67 @@
 			</div>
 		</div>
 	</nav>
-	<h1>Welcome, <c:out value="${user.name}" /> ID: <c:out value="${user.id}"/></h1>
-	<a class="list-group-item list-group-item-action" style="width: 200px; border-radius: 10px"href="/tasks/new">Create Task</a> 
-	<a class="list-group-item list-group-item-action" style="width: 200px; border-radius: 10px" href="/teams/new">Create Team</a>
+	<h1><c:out value="${user.name}" /></h1>
+	<a class="list-group-item list-group-item-action" style="width: 130px; border-radius: 10px"href="/tasks/new">Create Task</a> 
+	<a class="list-group-item list-group-item-action" style="width: 130px; border-radius: 10px" href="/teams/new">Create Team</a>
 	
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">Name</th>
-				<th scope="col">Creator</th>
-				<th scope="col">Creator ID</th>
-				<th scope="col">Assigned Team</th>
-				<th scope="col">Priority</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${allTasks}" var="task">
-				<tr>
-					<td> <a class="list-group-item list-group-item-action" style="max-width: 300px; border-radius: 10px" href="/tasks/${task.id }"> <c:out value="${task.name }"/></a></td>
-					<td><c:out value="${task.creator.name}"/></td>
-					<td><c:out value="${task.creator.id}"/></td>
-					<td><c:out value="${task.assignedTeam.name}"/></td>
-					<c:if test="${task.priority == 1}">
-						<td>Low</td>
-					</c:if>
-					<c:if test="${task.priority == 5}">
-						<td>Medium</td>
-					</c:if>
-					<c:if test="${task.priority == 9}">
-						<td>High</td>
-					</c:if>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	
 	<h2>Teams</h2>
 			<c:forEach items="${teams}" var="team">
 			<h4><a class="list-group-item-action" 
 						style="max-width: 300px; border-radius: 10px" 
-						href="/teams/${team.id }"><c:out value="${team.name}"/></a> Assigned Tasks<span style="font-size: 15px; font-weight: normal;"> Team Size:<c:out value="${team.teamMembers.size()}"/></span></h4>
+						href="/teams/${team.id }"><c:out value="${team.name}"/></a><span style="font-size: 15px; font-weight: normal;"> Assigned Tasks:<c:out value="${team.assignedTasks.size()}"/></span><span style="font-size: 15px; font-weight: normal;"> Team Size:<c:out value="${team.teamMembers.size()}"/></span></h4>
 			<ul class="list-group">
 
 				<c:forEach items="${team.assignedTasks}" var="task">
 				<li class="list-group-item">
+				<c:if test="${task.subTaskFor == null}">
 					<a class="list-group-item list-group-item-action" 
 						style="max-width: 300px; border-radius: 10px" 
 						href="/tasks/${task.id }"> 
 						<c:out value="${task.name }"/>
 					</a>
+					</c:if>
+						<ul>
+							<c:forEach items="${task.subTasks}" var="s">
+								<li><c:out value="${s.name}"/>
+							</c:forEach>
+						</ul>
 				</li>
 				</c:forEach>
 			</ul>
 			</c:forEach>
 	
-	
+<!-- 	<table class="table table-hover"> -->
+<!-- 		<thead> -->
+<!-- 			<tr> -->
+<!-- 				<th scope="col">Name</th> -->
+<!-- 				<th scope="col">Creator</th> -->
+<!-- 				<th scope="col">Creator ID</th> -->
+<!-- 				<th scope="col">Assigned Team</th> -->
+<!-- 				<th scope="col">Priority</th> -->
+<!-- 			</tr> -->
+<!-- 		</thead> -->
+<!-- 		<tbody> -->
+<%-- 			<c:forEach items="${allTasks}" var="task"> --%>
+<!-- 				<tr> -->
+<%-- 					<td> <a class="list-group-item list-group-item-action" style="max-width: 300px; border-radius: 10px" href="/tasks/${task.id }"> <c:out value="${task.name }"/></a></td> --%>
+<%-- 					<td><c:out value="${task.creator.name}"/></td> --%>
+<%-- 					<td><c:out value="${task.creator.id}"/></td> --%>
+<%-- 					<td><c:out value="${task.assignedTeam.name}"/></td> --%>
+<%-- 					<c:if test="${task.priority == 1}"> --%>
+<!-- 						<td>Low</td> -->
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${task.priority == 5}"> --%>
+<!-- 						<td>Medium</td> -->
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${task.priority == 9}"> --%>
+<!-- 						<td>High</td> -->
+<%-- 					</c:if> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</tbody> -->
+<!-- 	</table> -->
 
 	
 </body>

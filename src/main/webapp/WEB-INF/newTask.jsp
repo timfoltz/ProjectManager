@@ -29,18 +29,19 @@
 		</div>
 	</nav>
 <h1>Create a new task</h1>
-	<form:form method="POST" action="/tasks/new" modelAttribute="task">
-	 <form:input type="hidden" value="${user.id}" path="creator"/>
+	<div class="form-outline">
+		<form:form method="POST" action="/tasks/new" modelAttribute="task">
+		 	<form:input type="hidden" value="${user.id}" path="creator"/>
 		        <p>
-		            <form:label path="name">Name:</form:label>
-		            <form:input required="true" type="text" path="name"/>
+		           	<form:label class="form-label" for="formControlDefault" path="name">Name:</form:label>
+		            <form:input id="formControlDefault" class="form-control-md" required="true" type="text" path="name"/>
 		        </p>
 		        <p>Assigned to:
 		            <select name="assignedTeam">
 				        <c:forEach items="${teams}" var="team">
 				        	<option value="${team.id}"><c:out value="${team.name }"/></option>
 				        </c:forEach>
- 			       </select>
+			       </select>
 		        </p>
 		        <p>Priority: 
 		            <select name="priority">
@@ -49,9 +50,10 @@
 		            	<option value ="1">Low</option>
 		            </select>
 		        </p>
-		        
-		        <input type="submit" value="Create"/>
-		    </form:form>
+			        
+		        <input type="submit" class="btn btn-outline-primary" value="Create"/>
+	    </form:form>
+    </div>
 		    
 </body>
 </html>

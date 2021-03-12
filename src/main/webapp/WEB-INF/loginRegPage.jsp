@@ -6,13 +6,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8">
     <title>Login Page</title>
 </head>
 <body>
-	<div style = "display:flex; justify-content: space-evenly;">
-		<div>
-		    <h1>Login</h1>
+	<div class="container">
+		<div class="row"> 
+		    <div class="col-sm-3 mt-4 p-5 mx-auto">
+		    <div class="card text-white bg-secondary">
+		    <div class="card-body">
+		    <p class="card-title display-4">Login</p>
 		    <p style="color:red;"><c:out value="${error}" /></p>
 		    <form method="post" action="/login">
 		        <p>
@@ -23,11 +30,17 @@
 		            <label for="password">Password</label>
 		            <input required type="password" id="password" name="password"/>
 		        </p>
-		        <input type="submit" value="Login!"/>
+		        <input type="submit" class="btn btn-primary" value="Login!"/>
 		    </form>
 		    </div>
-		    <div> 
-		    <h1>Register!</h1>
+		    </div>
+		    </div>
+		    </div>
+		    <div class="row "> 
+		    <div class="col-lg-3 mt-2 p-5 mx-auto">
+		    <div class="card text-white bg-secondary">
+		    <div class="card-body">
+		    <p class="card-title display-4">Register</p>
 		    
 		    <p style="color:red;"><form:errors path="user.*"/></p>
 		    
@@ -50,8 +63,11 @@
 		            <form:label path="passwordConfirmation">Password Confirmation:</form:label>
 		            <form:password required="true" path="passwordConfirmation"/>
 		        </p>
-		        <input type="submit" value="Register!"/>
+		        <input type="submit" class="btn btn-primary" value="Register!"/>
 		    </form:form>
+		    </div>
+		    </div>
+		    </div>
 	    </div>
     </div>   
 </body>

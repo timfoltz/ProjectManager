@@ -55,30 +55,90 @@
 	
 	 <c:if test="${user.id == thisTask.creator.id}">
 		  <a href="/tasks/${thisTask.id}/edit">Edit</a> |  
-		 
+		 <c:if test="${thisTask.subTasks ==null}">
 		 <form action="/deleteTask/${thisTask.id }" method="POST">
 	 	<input type="hidden" name="_method" value="delete"> 
 		 <input type="submit" value="Delete"> </form>
+		 </c:if>
 		 
 	 </c:if>
 	 <c:if test="${thisTask.assignee.contains(user)}">
-	   <a href="/completed/${thisTask.id }">Completed</a>
+	 	<c:if test="${thisTask.subTasks.size()<1}">
+	   		<a href="/completed/${thisTask.id }">Completed</a>
+	   	</c:if>
 	 </c:if>
+ 	<h3>Associated subtasks</h3>
+ 	<c:if test="${thisTask.subTasks.size() <1}">
+	 	<p>NONE ASSIGNED</p>
+	</c:if>	
+	<c:if test="${thisTask.subTasks.size() >0}">
+		 <table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Creator</th>
+					<th scope="col">Assigned TeamMember</th>
+					<th scope="col">Priority</th>
+					<th scope="col">Complete</th>
+				</tr>
+			</thead>
 	 
-	 <h1>Create a new task</h1>
-	<form:form method="POST" action="/tasks/new" modelAttribute="task">
+			<tbody>
+				<c:forEach items="${subTasks}" var="task">
+					<tr>
+						<td> <a class="list-group-item list-group-item-action" 
+								style="max-width: 300px; border-radius: 10px" 
+								href="/tasks/${task.id }"> <c:out value="${task.name }"/>
+							 </a>
+							 <ul>
+							<c:forEach items="${task.subTasks}" var="s">
+								<li><c:out value="${s.name}"/>
+							</c:forEach>
+						</ul>
+						</td>
+						<td><c:out value="${task.creator.name}"/></td>
+							<c:if test="${task.assignee.size()<1}">
+								<td>Not Assigned</td>
+							</c:if>
+							
+								<c:forEach items="${task.assignee}" var="a">
+										<td><c:out value="${a.name}"/></td>
+								</c:forEach>
+						<c:if test="${task.priority == 1}">
+							<td>Low</td>
+						</c:if>
+						<c:if test="${task.priority == 5}">
+							<td>Medium</td>
+						</c:if>
+						<c:if test="${task.priority == 9}">
+							<td>High</td>
+						</c:if>
+						<td>
+							<c:if test="${!task.complete}">
+							In progress
+							</c:if>
+							<c:if test="${task.complete}">
+							COMPLETE
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+	
+	
+	</table>
+	</c:if>
+	 
+	 <h3>Add a new SUBTASK for this task</h3>
+	<form:form method="POST" action="/subtask/new" modelAttribute="task">
 	 <form:input type="hidden" value="${user.id}" path="creator"/>
+	 <form:input type="hidden" value="${thisTask.id}" path="subTaskFor"/>
+	 <form:input type="hidden" value="${thisTask.assignedTeam.id}" path="assignedTeam"/>
 		        <p>
 		            <form:label path="name">Name:</form:label>
 		            <form:input required="true" type="text" path="name"/>
 		        </p>
-		        <p>Assigned to:
-		            <select name="assignedTeam">
-				        <c:forEach items="${teams}" var="team">
-				        	<option value="${team.id}"><c:out value="${team.name }"/></option>
-				        </c:forEach>
- 			       </select>
-		        </p>
+		        
 		        <p>Priority: 
 		            <select name="priority">
 		            	<option value ="9">High</option>
@@ -87,7 +147,7 @@
 		            </select>
 		        </p>
 		        
-		        <input type="submit" value="Create"/>
+		        <input type="submit" class="btn btn-outline-primary" value="Add"/>
 		    </form:form>
 		 
 	

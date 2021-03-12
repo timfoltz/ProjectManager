@@ -36,6 +36,7 @@
 	<form:form method="POST" action="/tasks/${thisTask.id}" modelAttribute="thisTask">
 	<input type="hidden" name="_method" value="put">
 	 <form:input type="hidden" value="${thisUser.id}" path="creator"/>
+	 <form:input type="hidden" value="${thisTask.subTaskFor.id}" path="subTaskFor"/>
 	 
 		        <p>
 		            <form:label path="name">Name:</form:label>

@@ -63,15 +63,41 @@ public class TaskController {
 		}
 	
 	}
+	@PostMapping("subtask/new")
+	public String newSubTask(@Valid @ModelAttribute("subtask")Task subtask,
+			BindingResult result,
+			HttpSession session, 
+			Model model) {
+		Long id = (Long)session.getAttribute("userId");
+		
+		if(result.hasErrors()) {
+			List<User> allUsers = userService.findAll();
+			User thisUser = userService.findUserById(id);
+			List<Team> allTeams = teamService.allTeams();
+			model.addAttribute("user", thisUser);
+			model.addAttribute("allUsers", allUsers);
+			model.addAttribute("teams", allTeams);
+			return "viewTask.jsp";
+		}else{
+			taskService.createTask(subtask);
+			Long taskId = subtask.getSubTaskFor().getId();
+			return "redirect:/tasks/"+taskId;
+		}
+	}
 	
 	@GetMapping("tasks/{id}")
-	public String viewTask(@PathVariable("id")Long taskId, HttpSession session, Model model) {
+	public String viewTask(@ModelAttribute("task")Task task,
+							@PathVariable("id")Long taskId, 
+							HttpSession session, 
+							Model model) {
 		Long id = (Long)session.getAttribute("userId");
 		if(id !=null) {
 			Task thisTask = taskService.findTask(taskId);
 			User thisUser = userService.findUserById(id);
+			List<Task> subTasks = thisTask.getSubTasks();
 			model.addAttribute("user", thisUser);
 			model.addAttribute("thisTask", thisTask);
+			model.addAttribute("subTasks", subTasks);
 			return "viewTask.jsp";
 		}return "redirect:/";
 	}
@@ -92,6 +118,7 @@ public class TaskController {
 			return "newTask.jsp";
 		}return "redirect:/";
 	}
+	
 	
 	@GetMapping("/tasks/{id}/edit")
 	public String editTaskForm(
@@ -141,7 +168,7 @@ public class TaskController {
 			return "editTask.jsp";
 		}else{
 			taskService.editTask(task);
-			return "redirect:/tasks/"+taskId;
+			return "redirect:/teams/"+thisTeam.getId();
 		}
 	}
 	
@@ -159,8 +186,7 @@ public class TaskController {
 	
 	@GetMapping("/completed/{id}")
 	public String completed(@PathVariable("id")Long taskId, HttpSession session) {
-//		Long id = (Long)session.getAttribute("userId");
-//		Task thisTask = taskService.findTask(taskId);
+		Task thisTask = taskService.findTask(taskId);
 		
 			taskService.deleteTask(taskId);
 			return "redirect:/dashboard";
