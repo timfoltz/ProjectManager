@@ -8,5 +8,6 @@ import com.tim.beltexam.models.Task;
 
 public interface TaskRepo extends CrudRepository<Task, Long> {
 	List<Task> findAll();
+	List<Task> findBySubTaskForNull();
 
 }

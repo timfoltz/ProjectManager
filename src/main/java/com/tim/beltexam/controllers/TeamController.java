@@ -85,6 +85,7 @@ public String viewTeam(@PathVariable("id")Long teamId, HttpSession session, Mode
 		User thisUser = userService.findUserById(id);
 		model.addAttribute("user", thisUser);
 		model.addAttribute("thisTeam", thisTeam);
+		System.out.println(thisUser.getRoles());
 		return "viewTeam.jsp";
 	}return "redirect:/";
 }

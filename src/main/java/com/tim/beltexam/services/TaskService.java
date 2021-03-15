@@ -31,9 +31,9 @@ public class TaskService {
 		return taskRepo.findAll();
 	}
 //	******Read SOME******
-//	public List<Task> tasksNotUser(User user){
-//		return taskRepo.findByCreatorIsNot(user);
-//	}
+	public List<Task> notSubTask(){
+		return taskRepo.findBySubTaskForNull();
+	}
 //	******Update******
 	public void updateTask(Long userId, Task task) {
 		List<User> goers = task.getAssignee();

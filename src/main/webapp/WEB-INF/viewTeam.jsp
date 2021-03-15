@@ -14,24 +14,30 @@
 <title>Team <c:out value="${thisTeam.name}"></c:out> </title>
 </head>
 <body style="background-color: rgb(214 214 214)">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-			    <ul class="navbar-nav">
-			    	<li class="nav-item">	
-						<a class="nav-link active" aria-current="page"  href="/dashboard">Dashboard</a>
-					</li>
-					
-				</ul>
-			</div>
+	<div class="container">
+		<nav class="navbar navbar-expand-lg navbar-light bg-success rounded">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			      <span class="navbar-toggler-icon"></span>
+			    </button>
+			    <div class="collapse navbar-collapse" id="navbarNav">
+				    <ul class="navbar-nav">
+				    	<li class="nav-item">	
+							<a class="nav-link active" aria-current="page"  href="/logout">Logout</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+		<p>User:<c:out value="${user.name}" /> Role: <c:out value="${user.roles}"/></p>
 		</div>
-	</nav>
-	<h1>Team: <c:out value="${thisTeam.name}"/></h1><a class="list-group-item-action" 
-						style="max-width: 300px; border-radius: 10px" 
-						href="/manage/${thisTeam.id }">Manage Team</a>
+			</div>
+		</nav>
+	<h1>Team: <c:out value="${thisTeam.name}"/></h1>
+		<c:if test="${user.roles.equals(ADMIN)}">
+			<a class="list-group-item-action" 
+			style="max-width: 300px; border-radius: 10px" 
+			href="/manage/${thisTeam.id }">Manage Team</a>
+		</c:if>
 	<h3>Assigned to team:</h3>
 	<ul class="list-group">
 		<c:forEach items="${thisTeam.teamMembers}" var="tm">
@@ -63,6 +69,7 @@
 				</c:if>
 		</c:forEach>
 	</ul>
+</div>
 	
 
 		 

@@ -55,12 +55,16 @@ public class MainController {
     public String dashboard(HttpSession session, Model model) {
     	Long id = (Long) session.getAttribute("userId");
     	if(id != null) {
+    		List<Task> notSubs = taskService.notSubTask();
     		List<Task> allTasks = taskService.allTasks();
     		User thisUser = userService.findUserById(id);
     		List<Team> allTeams = teamService.allTeams();
     		model.addAttribute("teams", allTeams);
     		model.addAttribute("user", thisUser);
     		model.addAttribute("allTasks", allTasks);
+    		model.addAttribute("notSub", notSubs);
+    		
+    		System.out.println(notSubs);
     		return "dashboard.jsp";
     	} else {
     		return "redirect:/";
