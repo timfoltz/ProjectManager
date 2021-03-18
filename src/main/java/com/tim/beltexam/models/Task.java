@@ -19,6 +19,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 @Entity
 @Table(name="tasks")
 public class Task {
@@ -33,6 +35,9 @@ public class Task {
 	private Integer priority;
 	
 	private Boolean complete;
+	
+	@Column(columnDefinition = "integer default 0")
+	private Integer numComplete;
 	
 	@Column(updatable=false)
 	private Date createdAt;
@@ -135,6 +140,14 @@ public class Task {
 
 	public void setComplete(Boolean complete) {
 		this.complete = complete;
+	}
+
+	public Integer getNumComplete() {
+		return numComplete;
+	}
+
+	public void setNumComplete(Integer completed) {
+		this.numComplete = completed;
 	}
 
 	public Task getSubTaskFor() {

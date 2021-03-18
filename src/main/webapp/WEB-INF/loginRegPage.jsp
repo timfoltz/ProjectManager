@@ -16,19 +16,19 @@
 <body>
 	<div class="container">
 		<div class="row"> 
-		    <div class="col-sm-3 mt-4 p-5 mx-auto">
-		    <div class="card text-white bg-secondary">
+		    <div class="col-lg-4 mt-4 p-5 mx-auto">
+		    <div class="card  bg-info">
 		    <div class="card-body">
 		    <p class="card-title display-4">Login</p>
 		    <p style="color:red;"><c:out value="${error}" /></p>
 		    <form method="post" action="/login">
 		        <p>
 		            <label for="email">Email</label>
-		            <input required type="text" id="email" name="email"/>
+		            <input class="form-control" required type="text" id="email" name="email"/>
 		        </p>
 		        <p>
 		            <label for="password">Password</label>
-		            <input required type="password" id="password" name="password"/>
+		            <input class="form-control" required type="password" id="password" name="password"/>
 		        </p>
 		        <input type="submit" class="btn btn-primary" value="Login!"/>
 		    </form>
@@ -37,8 +37,8 @@
 		    </div>
 		    </div>
 		    <div class="row "> 
-		    <div class="col-lg-3 mt-2 p-5 mx-auto">
-		    <div class="card text-white bg-secondary">
+		    <div class="col-lg-4 mt-2 p-5 mx-auto">
+		    <div class="card  bg-info">
 		    <div class="card-body">
 		    <p class="card-title display-4">Register</p>
 		    
@@ -48,20 +48,20 @@
 		        
 		        <p>
 		            <form:label path="name">Name:</form:label>
-		            <form:input required="true" type="text" path="name"/>
+		            <form:input class="form-control" required="true" type="text" path="name"/>
 		        </p>
 		        <p>
 		            <form:label path="email">Email:</form:label>
-		            <form:input required="true" type="email" path="email"/>
+		            <form:input class="form-control" required="true" type="email" path="email"/>
 		        </p>
 		        
 		        <p>
 		            <form:label path="password">Password:</form:label>
-		            <form:password required="true" path="password"/>
+		            <form:password class="form-control" required="true" path="password"/>
 		        </p>
 		        <p>
 		            <form:label path="passwordConfirmation">Password Confirmation:</form:label>
-		            <form:password required="true" path="passwordConfirmation"/>
+		            <form:password class="form-control" required="true" path="passwordConfirmation"/>
 		        </p>
 		        <input type="submit" class="btn btn-primary" value="Register!"/>
 		    </form:form>

@@ -35,18 +35,21 @@ public class TaskService {
 		return taskRepo.findBySubTaskForNull();
 	}
 //	******Update******
-	public void updateTask(Long userId, Task task) {
-		List<User> goers = task.getAssignee();
-		User going = userService.findUserById(userId);
-		goers.add(going);
-		taskRepo.save(task);
-	}
-	public void leaveTask(Long userId, Task task) {
-		List<User> goers = task.getAssignee();
-		User going = userService.findUserById(userId);
-		goers.remove(going);
-		taskRepo.save(task);
-	}
+//	public void updateTask(Long userId, Task task) {
+//		List<User> goers = task.getAssignee();
+//		User going = userService.findUserById(userId);
+//		goers.add(going);
+//		taskRepo.save(task);
+//	}
+//	public void leaveTask(Long userId, Task task) {
+//		List<User> goers = task.getAssignee();
+//		User going = userService.findUserById(userId);
+//		goers.remove(going);
+//		taskRepo.save(task);
+//	}
+//	public void completeTask(Long taskId) {
+//		Optional<Task> thisTask = taskRepo.findById(taskId);		
+//	}
 	public void editTask(Task task) {
 		taskRepo.save(task);
 	}

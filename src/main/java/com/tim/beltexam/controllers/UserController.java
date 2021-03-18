@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.tim.beltexam.models.Task;
+import com.tim.beltexam.models.Team;
 import com.tim.beltexam.models.User;
 import com.tim.beltexam.repos.UserRepo;
 import com.tim.beltexam.services.TaskService;
@@ -35,8 +36,12 @@ public class UserController {
 	public String viewUser(@PathVariable("id")Long userId, HttpSession session, Model model) {
 		Long id = (Long)session.getAttribute("userId");
 		if(id !=null) {
+			User user = userService.findUserById(id);
 			User thisUser = userService.findUserById(userId);
+			List<Team> allTeams = teamService.allTeams();
+			model.addAttribute("allTeams", allTeams);
 			model.addAttribute("thisUser", thisUser);
+			model.addAttribute("user", user);
 			return "viewUser.jsp";
 		}return "redirect:/";
 		
@@ -47,16 +52,15 @@ public class UserController {
 							@PathVariable("taskId")Long taskId, 
 							HttpSession session) {
 			Long loggedIn = (Long)session.getAttribute("userId");
-			System.out.println("inside remove from team");
+
 			if(loggedIn !=null) {
-				System.out.println("inside remove from team if");
+
 				User thisUser = userService.findUserById(userId);
-				System.out.println(thisUser);
+
 				List<Task> thisTaskList = thisUser.getAssignedToTask();
-				System.out.println(thisTaskList);
+
 				thisTaskList.clear();
-				System.out.println(thisTaskList);
-				System.out.println(thisUser.getAssignedToTask());
+;
 				thisUser.setAssignedTeam(null);
 				userRepo.save(thisUser);
 				

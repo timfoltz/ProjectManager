@@ -187,9 +187,17 @@ public class TaskController {
 	@GetMapping("/completed/{id}")
 	public String completed(@PathVariable("id")Long taskId, HttpSession session) {
 		Task thisTask = taskService.findTask(taskId);
-		
-			taskService.deleteTask(taskId);
+		if(thisTask.getSubTaskFor()==null) {
+			thisTask.setComplete(true);
+			taskService.editTask(thisTask);
 			return "redirect:/dashboard";
+		}else {
+		Task parent = taskService.findTask(thisTask.getSubTaskFor().getId());
+		thisTask.setComplete(true);
+		parent.setNumComplete(parent.getNumComplete()+1);
+		taskService.editTask(thisTask);
+		return "redirect:/dashboard";
+		}
 		
 	}
 	

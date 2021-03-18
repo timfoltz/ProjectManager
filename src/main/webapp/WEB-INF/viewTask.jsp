@@ -34,6 +34,9 @@
 					</li>
 				</ul>
 			</div>
+			<div>
+					<p>User:<c:out value="${user.name}" /> Role: <c:out value="${user.roles}"/></p>
+				</div>
 		</div>
 	</nav>
 	<h1>Task: <c:out value="${thisTask.name}"/></h1>
@@ -63,10 +66,20 @@
 		 
 	 </c:if>
 	 <c:if test="${thisTask.assignee.contains(user)}">
+	 <c:if test="${!thisTask.complete}">
 	 	<c:if test="${thisTask.subTasks.size()<1}">
-	   		<a href="/completed/${thisTask.id }">Completed</a>
+	   		<a href="/completed/${thisTask.id }">Complete</a>
+	   	</c:if>
 	   	</c:if>
 	 </c:if>
+	 <c:if test="${thisTask.complete}">
+		 COMPLETE
+	 </c:if>
+	 <c:if test="${user.roles.equalsIgnoreCase('admin')}">
+	 	<c:if test="${!thisTask.complete}">
+	   		<a href="/completed/${thisTask.id }">Complete</a>
+	   	</c:if>
+   	</c:if>
  	<h3>Associated subtasks</h3>
  	<c:if test="${thisTask.subTasks.size() <1}">
 	 	<p>NONE ASSIGNED</p>
@@ -128,7 +141,7 @@
 	
 	</table>
 	</c:if>
-	 
+	 <c:if test="${!thisTask.complete}">
 	 <h3>Add a new SUBTASK for this task</h3>
 	<form:form method="POST" action="/subtask/new" modelAttribute="task">
 	 <form:input type="hidden" value="${user.id}" path="creator"/>
@@ -149,6 +162,11 @@
 		        
 		        <input type="submit" class="btn btn-outline-primary" value="Add"/>
 		    </form:form>
+	    </c:if>
+	     <c:if test="${thisTask.complete}">
+		 <h1 class="display-1">This Task is Complete</h1>
+		 <p>No other task can be assigned</p>
+	 </c:if>
 		 
 	
 						 

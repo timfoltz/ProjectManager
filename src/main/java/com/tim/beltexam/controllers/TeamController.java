@@ -85,7 +85,6 @@ public String viewTeam(@PathVariable("id")Long teamId, HttpSession session, Mode
 		User thisUser = userService.findUserById(id);
 		model.addAttribute("user", thisUser);
 		model.addAttribute("thisTeam", thisTeam);
-		System.out.println(thisUser.getRoles());
 		return "viewTeam.jsp";
 	}return "redirect:/";
 }
@@ -103,6 +102,22 @@ public String manageTeam(@PathVariable("id")Long teamId, HttpSession session, Mo
 		return "manageTeam.jsp";
 	}return "redirect:/";
 }
+@PutMapping("/manage/fromuser")
+public String addFromUser(@RequestParam(value="team")Long teamId,
+		@RequestParam(value="user")Long member,
+		HttpSession session,
+		Model model) {
+	Long id = (Long)session.getAttribute("userId");
+	Team thisTeam = teamService.findTeam(teamId);
+	System.out.println(userService.findUserById(member).getName());
+	System.out.println(thisTeam);
+	
+	teamService.addUserToTeam(member, thisTeam);
+	
+	return "redirect:/teams/"+teamId;
+	
+}
+
 @PutMapping("/manage/{id}")
 public String addTeamMember(@RequestParam(value="teamMembers")Long member,
 		@PathVariable("id") Long teamId,
@@ -118,5 +133,6 @@ public String addTeamMember(@RequestParam(value="teamMembers")Long member,
 		return "redirect:/teams/"+teamId;
 	
 }
+
 
 }

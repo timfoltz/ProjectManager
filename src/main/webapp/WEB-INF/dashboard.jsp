@@ -49,7 +49,29 @@
 					<c:forEach items="${notSub}" var="task">
 						<c:if test="${task.assignedTeam.id == team.id}">
 						<li class="list-group-item bg-dark">
+						<c:if test="${task.complete}">
+									<div class="progress m-2">
+								  		<div class="progress-bar bg-primary" 
+							  				role="progressbar" 
+							  				aria-valuenow="75" 
+							  				aria-valuemin="0" 
+							  				aria-valuemax="100" 
+							  				style="width: 100%">Complete</div>
+									</div>
+								</c:if>
+						<c:if test="${!task.complete}">	
+							<div class="progress m-2">
+							  <div class="progress-bar" 
+						  				role="progressbar" 
+						  				aria-valuenow="75" 
+						  				aria-valuemin="0" 
+						  				aria-valuemax="100" 
+						  				style="width: <c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'></c:out>"><c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'/></div>
+							</div>
+							</c:if>
+							
 							<c:if test="${task.subTaskFor == null}">
+							
 								<a class="list-group-item list-group-item-action" 
 									style="max-width: 300px; border-radius: 10px" 
 									href="/tasks/${task.id }"> 
@@ -59,7 +81,12 @@
 							<c:if test="${task.subTasks.size() > 0 }">
 								<ul class="list-unstyled">
 									<c:forEach items="${task.subTasks}" var="s">
-										<li><c:out value="${s.name}"/>
+										<c:if test="${s.complete}">
+											<li><del><c:out value="${s.name}"/></del>
+										</c:if>
+										<c:if test="${!s.complete}">
+											<li><c:out value="${s.name}"/>
+										</c:if>
 									</c:forEach>
 								</ul>
 							</c:if>

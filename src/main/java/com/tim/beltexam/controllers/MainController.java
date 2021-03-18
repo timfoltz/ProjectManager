@@ -64,7 +64,6 @@ public class MainController {
     		model.addAttribute("allTasks", allTasks);
     		model.addAttribute("notSub", notSubs);
     		
-    		System.out.println(notSubs);
     		return "dashboard.jsp";
     	} else {
     		return "redirect:/";
