@@ -15,7 +15,14 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-success rounded" style="box-shadow: 2px 2px 2px">
+	<div class="bg-image"
+			style="	background-image:url('https://focus.flokk.com/hubfs/Blogs/2021/Zoom%20Meeting%20BAckgrounds/Flokk_Teams-Zoom-Background_work_01.jpg');
+					background-repeat: no-repeat;
+				    background-attachment: fixed;
+				    background-size: cover;
+				    min-height:100vh;
+				    background-position: center;">
+		<nav class="m-3 navbar navbar-expand-lg navbar-light rounded" style="background-color: rgb(67 139 211 / 52%);">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			      <span class="navbar-toggler-icon"></span>
@@ -28,6 +35,9 @@
 				    	<li class="nav-item">	
 							<a class="nav-link active" aria-current="page"  href="/logout">Logout</a>
 						</li>
+				    	<li class="nav-item">	
+							<a class="nav-link active" aria-current="page"  href="/manage/${thisTeam.id}">Manage Team</a>
+						</li>
 					</ul>
 				</div>
 				<div>
@@ -35,19 +45,13 @@
 				</div>
 			</div>
 		</nav>
-	<h2>Team: <c:out value="${thisTeam.name}"/></h2>
-		<c:if test="${user.roles.equalsIgnoreCase('admin')}">
-		<div class="d-flex ">
-			<form style="box-shadow: 2px 2px 2px" action="/manage/${thisTeam.id}" class="m-2 rounded"><button type="submit" class="btn btn-success btn-rounded btn-sm">Manage Team</button></form> 
-		</div>
-		</c:if>
-	<h3>Team Members:</h3>
-	<div class="container bg-success text-white p-2 mt-2 rounded text-center" style="box-shadow: 2px 2px 2px black">
-	<ul class="list-group list-group-horizontal d-flex justify-content-left">
+		<h3 class="display-5 m-2 rounded p-1" style="background-color: rgb(255 255 255 / 26%);max-width: fit-content;font-weight: 400">Team Members:</h3>
+	<div class="container text-white p-2 mt-2 rounded text-center" style="background-color: transparent;">
+	<ul class="list-group list-group-horizontal d-flex justify-content-" style="background-color: transparent;" >
 		<c:forEach items="${thisTeam.teamMembers}" var="tm">
-			<li class="list-group-item bg-success" style="border: none;">
-				<a class="list-group-item list-group-item-action" 
-					style="max-width: 300px; border-radius: 10px; border: none; box-shadow: 4px 4px 4px" 
+			<li class="list-group-item" style="background-color: transparent;border: none;">
+				<a class="text-white list-group-item list-group-item-action" 
+					style="background-color: rgb(67 139 211 / 80%);max-width: 300px; border-radius: 10px; border: none;" 
 					href="/users/${tm.id }"> 
 					<c:out value="${tm.name}"/>
 				</a>
@@ -55,35 +59,64 @@
 		</c:forEach>
 	</ul>
 	</div>
-	<h3>Tasks for the team:</h3>
-	<div class="container bg-success  p-2 mt-2 rounded text-center" style="box-shadow: 2px 2px 2px black">
+		
+		
+			<div style="display: flex; 
+						justify-content: center;">
+				<h2 class="display-2 rounded m-2 p-2" 
+					style="text-align: center;
+					font-weight: 400;
+					width: fit-content;
+					background-color: rgb(67 139 211 / 80%);
+					text-shadow: 0px 0px 15px white;" >
+					<c:out value="${thisTeam.name}"/></h2>
+			</div>
+		
+		<c:if test="${user.roles.equalsIgnoreCase('admin')}">
+		
+		</c:if>
+	
+		<div style="display: flex;justify-content: center;">
+			<h3 class="display-4 m-2 rounded p-1" 
+				style="background-color: rgb(67 139 211 / 80%);
+				text-align:center; 
+				font-weight: 400; 
+				width: fit-content;
+				text-shadow: 0px 0px 10px white" >
+				Assigned tasks</h3>
+		</div>
+	<div class="container  p-2 mt-2 rounded text-center" style="background-color: transparent; max-width: fit-content; min-width: 50%">
 	<ul class="list-group d-flex justify-content-center">
 		<c:forEach items="${thisTeam.assignedTasks}" var="task">
 			<c:if test="${task.subTaskFor ==null }">
-				<li style="box-shadow: 2px 2px 2px 2px black" class="m-3 list-group-item rounded <c:if test="${task.complete}">bg-success</c:if><c:if test="${!task.complete}">bg-warning</c:if> ">
-					<a class="list-group-item text-white list-group-item-action bg-primary" 
-						style="max-width: 300px; border-radius: 10px;  box-shadow: 2px 2px 2px 2px black" 
+				<li style="<c:if test="${task.complete}">background-color:rgb(32 117 32 / 36%);</c:if><c:if test="${!task.complete}">background-color:rgb(150 13 16 / 20%);</c:if>" class="m-3 list-group-item rounded  ">
+					<a class="list-group-item text-white list-group-item-action" 
+						style=" border-radius: 10px;  background-color:rgb(67 139 211 / 80%); text-align: center" 
 						href="/tasks/${task.id }"> 
 						<c:out value="${task.name}"/>
 					</a>
 					<c:if test="${task.complete}">
 					<div class="progress m-2">
-							  <div class="progress-bar bg-primary progress-bar-striped" 
+							  <div class="progress-bar progress-bar" 
 						  				role="progressbar" 
 						  				aria-valuenow="75" 
 						  				aria-valuemin="0" 
 						  				aria-valuemax="100" 
-						  				style="width: 100%;">Complete</div>
+						  				style="width: 100%;
+						  				background-color:rgb(67 139 211 / 80%)">Complete</div>
 							</div>
 					</c:if>
 					<c:if test="${!task.complete}">
 						<div class="progress m-2">
-							  <div class="progress-bar progress-bar-striped" 
+							  <div class="progress-bar progress-bar" 
 					  				role="progressbar" 
 					  				aria-valuenow="75" 
 					  				aria-valuemin="0" 
 					  				aria-valuemax="100" 
-					  				style=" width: <c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'></c:out>"><c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'/></div>
+					  				style=" width: <c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%;'></c:out>
+					  				background-color:rgb(67 139 211 / 80%)">
+					  				<c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'/>
+					  				</div>
 								</div>
 							</c:if>
 						<c:if test="${task.subTasks.size() > 0 }">
@@ -107,6 +140,7 @@
 				</c:if>
 		</c:forEach>
 	</ul>
+	</div>
 	</div>
 </div>
 	

@@ -14,8 +14,15 @@
 <title><c:out value="${thisUser.name}"></c:out> </title>
 </head>
 <body>
-<div class="container mt-2">
-	<nav class="navbar navbar-expand-lg navbar-light bg-success rounded">
+<div class="container mt-2" style="min-height:100vh;">
+<div class="bg-image"
+			style="	background-image:url('https://focus.flokk.com/hubfs/Blogs/2021/Zoom%20Meeting%20BAckgrounds/Flokk_Teams-Zoom-Background_work_01.jpg');
+					background-repeat: no-repeat;
+				    background-attachment: fixed;
+				    background-size: cover;
+				    min-height:100vh;
+				    background-position: center;">
+	<nav class="navbar navbar-expand-lg navbar-light rounded" style="background-color: rgb(67 139 211 / 52%);">
 		<div class="container-fluid">
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
@@ -40,66 +47,63 @@
 		</div>
 	</nav>
 	<h1><c:out value="${thisUser.name}"/></h1>
-	<p>Assigned to team:
-		
-			<c:if test="${thisUser.assignedTeam != null}">  
-				<c:out value="${thisUser.assignedTeam.name}"/> 
-			</c:if>
-			<c:if test="${thisUser.assignedTeam == null}">  
-				Not Assigned 
-			</c:if>
-				<c:if test="${user.roles.equalsIgnoreCase('admin') || user.roles.equalsIgnoreCase('lead')}">
-					<c:if test="${thisUser.assignedTeam.id!=null}">
-					<a href="/offTeam/${thisUser.id}/${thisUser.assignedTeam.id}">Remove</a>
-					</c:if>
-					<c:if test="${thisUser.assignedTeam.id==null}">
-						<form method="POST" action="/manage/fromuser">
-					       	<input type="hidden" name="_method" value="put">
-					       	<input type="hidden" name="user" value="${thisUser.id}">
-					        <p>Assign to team:
-					            <select name="team">
-							        <c:forEach items="${allTeams}" var="t">
-							        	<option value="${t.id}"><c:out value="${t.name}"/></option>
-							        </c:forEach>
-			 			       </select>
-				       		</p>
-				        	<input type="submit" value="Add"/>
-			    		</form>
-						
-					</c:if>
-				</c:if></p>
 	<h3>Assigned Tasks:</h3>
-	<div class="container bg-success  p-2 mt-2 rounded text-center">
+	<div class="container  p-2 mt-2 rounded text-center" style="background-color: transparent; max-width: fit-content; min-width: 50%">
 	<ul class="list-group list-group d-flex justify-content-center">
 		<c:forEach items="${thisUser.assignedToTask}" var="task">
-			<li class="list-group-item bg-warning">
-				<a class="list-group-item text-white list-group-item-action bg-secondary" 
-					style="max-width: 300px; border-radius: 10px" 
-					href="/tasks/${task.id }"> 
-					<c:out value="${task.name}"/>
-				</a>
+			<li style="<c:if test="${task.complete}">background-color:rgb(32 117 32 / 36%);</c:if><c:if test="${!task.complete}">background-color:rgb(150 13 16 / 40%);</c:if>" class="m-3 list-group-item rounded  ">
+				<a class="list-group-item text-white list-group-item-action" 
+						style="border-radius: 10px;  background-color:rgb(67 139 211 / 80%); text-align: center" 
+						href="/tasks/${task.id }"> 
+						<c:out value="${task.name}"/>
+					</a>
+				<c:if test="${task.complete}">
+					<div class="progress m-2">
+							  <div class="progress-bar progress-bar" 
+						  				role="progressbar" 
+						  				aria-valuenow="75" 
+						  				aria-valuemin="0" 
+						  				aria-valuemax="100" 
+						  				style="width: 100%;
+						  				background-color:rgb(67 139 211 / 80%)">Complete</div>
+							</div>
+					</c:if>
+					<c:if test="${!task.complete}">
+						<div class="progress m-2">
+							  <div class="progress-bar progress-bar" 
+					  				role="progressbar" 
+					  				aria-valuenow="75" 
+					  				aria-valuemin="0" 
+					  				aria-valuemax="100" 
+					  				style=" width: <c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%;'></c:out>
+					  				background-color:rgb(67 139 211 / 80%)">
+					  				<c:out value='${Math.round(task.numComplete/task.subTasks.size()*100)}%'/>
+					  				</div>
+								</div>
+							</c:if>
 				<c:if test="${task.subTasks.size() > 0 }">
 								<ul class="list-unstyled">
 									<c:forEach items="${task.subTasks}" var="s">
 										<c:if test="${s.complete}">
-											<li><del><c:out value="${s.name}"/></del>
+											<li style="font-weight:bold; text-shadow: 0px 0px 20px white"><del><c:out value="${s.name}"/></del>
 										</c:if>
 										<c:if test="${!s.complete}">
-											<li><c:out value="${s.name}"/>
+											<li style="font-weight:bold; text-shadow: 0px 0px 20px white"><c:out value="${s.name}"/>
 										</c:if>
 									</c:forEach>
 								</ul>
 							</c:if>
 							<c:if test="${task.subTasks.size() < 1 }">
 								<ul class="list-unstyled">
-									<li>NONE</li>
+									<li style="font-weight:bold; text-shadow: 0px 0px 20px white">NONE</li>
 								</ul>
 							</c:if>
-			</li>
+						</li>
 			
-		</c:forEach>
-		</ul>
-	</div>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
