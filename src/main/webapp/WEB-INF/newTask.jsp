@@ -13,21 +13,37 @@
 <meta charset="ISO-8859-1">
 <title>Add new Task</title>
 </head>
-<body style="background-color: rgb(214 214 214)">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		      <span class="navbar-toggler-icon"></span>
-		    </button>
-		    <div class="collapse navbar-collapse" id="navbarNav">
-			    <ul class="navbar-nav">
-			    	<li class="nav-item">	
-						<a class="nav-link active" aria-current="page"  href="/dashboard">Dashboard</a>
-					</li>
-				</ul>
-			</div>
+<body>
+<div class="container mt-3">
+<div class="bg-image"
+			style="	background-image:url('https://focus.flokk.com/hubfs/Blogs/2021/Zoom%20Meeting%20BAckgrounds/Flokk_Teams-Zoom-Background_work_01.jpg');
+					background-repeat: no-repeat;
+				    background-attachment: fixed;
+				    background-size: cover;
+				    min-height: 100vh;
+				    background-position: center;"><nav class="navbar navbar-expand-lg navbar-light rounded m-3"style="background-color: rgb(67 139 211 / 52%);">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			      <span class="navbar-toggler-icon"></span>
+			    </button>
+			    <div class="collapse navbar-collapse" id="navbarNav">
+				    <ul class="navbar-nav">
+				    	
+				    	<li class="nav-item">	
+							<a class="nav-link active" aria-current="page"  href="/dashboard">Dashboard</a>
+						</li>
+						<li class="nav-item">	
+							<a class="nav-link active" aria-current="page"  href="/logout">Logout</a>
+						</li>
+				    	
+					</ul>
+				</div>
+				
+				<div>
+		<p>User:<c:out value="${user.name}" /> Role: <c:out value="${user.roles}"/></p>
 		</div>
-	</nav>
+			</div>
+		</nav>
 <h1>Create a new task</h1>
 	<div class="form-outline">
 		<form:form method="POST" action="/tasks/new" modelAttribute="task">
@@ -53,6 +69,8 @@
 			        
 		        <input type="submit" class="btn btn-outline-primary" value="Create"/>
 	    </form:form>
+    </div>
+    </div>
     </div>
 		    
 </body>
