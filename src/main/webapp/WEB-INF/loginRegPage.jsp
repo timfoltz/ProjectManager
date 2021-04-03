@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-	<div class="bg-image"
+	<div class="bg-image p-3"
 			style="	background-image:url('https://focus.flokk.com/hubfs/Blogs/2021/Zoom%20Meeting%20BAckgrounds/Flokk_Teams-Zoom-Background_work_01.jpg');
 					background-repeat: no-repeat;
 				    background-attachment: fixed;

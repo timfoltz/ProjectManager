@@ -15,13 +15,14 @@
 </head>
 <body>
 <div class="container mt-3">
-<div class="bg-image"
+<div class="bg-image p-3"
 			style="	background-image:url('https://focus.flokk.com/hubfs/Blogs/2021/Zoom%20Meeting%20BAckgrounds/Flokk_Teams-Zoom-Background_work_01.jpg');
 					background-repeat: no-repeat;
 				    background-attachment: fixed;
 				    background-size: cover;
 				    min-height: 100vh;
-				    background-position: center;"><nav class="navbar navbar-expand-lg navbar-light rounded m-3"style="background-color: rgb(67 139 211 / 52%);">
+				    background-position: center;">
+		    <nav class="navbar navbar-expand-lg navbar-light rounded m-3"style="background-color: rgb(67 139 211 / 52%);">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			      <span class="navbar-toggler-icon"></span>
@@ -35,39 +36,55 @@
 						<li class="nav-item">	
 							<a class="nav-link active" aria-current="page"  href="/logout">Logout</a>
 						</li>
-				    	
 					</ul>
 				</div>
-				
 				<div>
-		<p>User:<c:out value="${user.name}" /> Role: <c:out value="${user.roles}"/></p>
-		</div>
+					<p>User:<c:out value="${user.name}" /> Role: <c:out value="${user.roles}"/></p>
+				</div>
 			</div>
 		</nav>
 <h1>Create a new task</h1>
-	<div class="form-outline">
-		<form:form method="POST" action="/tasks/new" modelAttribute="task">
+	<div class="d-flex justify-content-center">
+		<form:form class="p-3" method="POST" action="/tasks/new" modelAttribute="task" style="background-color: rgb(67 139 211 / 52%);border-radius: 5px;">
 		 	<form:input type="hidden" value="${user.id}" path="creator"/>
 		        <p>
-		           	<form:label class="form-label" for="formControlDefault" path="name">Name:</form:label>
-		            <form:input id="formControlDefault" class="form-control-md" required="true" type="text" path="name"/>
+		           	
+		            <form:input class="form-control"
+		            			placeholder="Name" 
+		            			aria-label=".form-control-lg example" 
+		            			required="true" 
+		            			type="text" 
+		            			path="name"
+		            			tyle="border-radius:5px; border:none;padding:4px;" />
 		        </p>
-		        <p>Assigned to:
-		            <select name="assignedTeam">
+		        <p>
+		            <select class="form-select" 
+		            		aria-label="Default select example"
+		            		name="assignedTeam">
+		            		<option selected>Assigned team</option>
 				        <c:forEach items="${teams}" var="team">
 				        	<option value="${team.id}"><c:out value="${team.name }"/></option>
 				        </c:forEach>
 			       </select>
 		        </p>
-		        <p>Priority: 
-		            <select name="priority">
+		        <p>
+		            <select class="form-select" 
+		            		aria-label="Default select example" 
+		            		name="priority"
+		            		style="max-width: fit-content;">
+		            		<option selected>Priority</option>
 		            	<option value ="9">High</option>
 		            	<option value ="5">Medium</option>
 		            	<option value ="1">Low</option>
 		            </select>
 		        </p>
 			        
-		        <input type="submit" class="btn btn-outline-primary" value="Create"/>
+		        <input style="border-radius: 10px; 
+	        				background-color:rgb(67 139 211 / 80%); 
+	        				text-align: center" 
+	        				type="submit" 
+	        				class="btn text-white" 
+	        				value="Create"/>
 	    </form:form>
     </div>
     </div>
