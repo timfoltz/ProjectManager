@@ -20,7 +20,7 @@
 					background-repeat: no-repeat;
 				    background-attachment: fixed;
 				    background-size: cover;
-				    height:100vh;
+				    min-height:100vh;
 				    background-position: center;">
 		<h1 class="display-1 text-center" style="text-shadow: 1px 1px 1px gray; font-weight: 400;" >Get it done!</h1>
 		<div class="row"> 

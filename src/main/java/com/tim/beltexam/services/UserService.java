@@ -1,5 +1,6 @@
 package com.tim.beltexam.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,11 @@ public class UserService {
     public User registerUser(User user) {
         String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashed);
-        return userRepo.save(user);
+        if(userRepo.findAll().size()<2) {
+        	user.setRoles("ADMIN");
+        	return userRepo.save(user);
+        	
+        }else {	return userRepo.save(user); }
     }
     
     // find user by email
@@ -56,5 +61,15 @@ public class UserService {
                 return false;
             }
         }
+    }
+    
+    public List<String> emailList(){
+    	List<User> userList = (List<User>) userRepo.findAll();
+    	List<String> userEmail = new ArrayList<String>();
+    	for(User u : userList) {
+    		userEmail.add(u.getEmail());
+    	}
+    	
+    	return userEmail;
     }
 }

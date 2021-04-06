@@ -130,8 +130,7 @@ public class TaskController {
 		Task thisTask = taskService.findTask(taskId);
 		Team thisTeam = thisTask.getAssignedTeam();
 		List<Team> allTeams = teamService.allTeams();
-		System.out.println(id);
-		System.out.println(taskId);
+		
 		
 		if(id.equals(thisTask.getCreator().getId())) {
 			List<User> allUsers = userService.findAll();
@@ -164,7 +163,6 @@ public class TaskController {
 			model.addAttribute("user", thisUser);
 			model.addAttribute("thisTeam", thisTeam);
 			model.addAttribute("allTeams", allTeams);
-			System.out.println(result);
 			return "editTask.jsp";
 		}else{
 			taskService.editTask(task);

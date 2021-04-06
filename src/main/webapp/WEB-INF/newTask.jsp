@@ -22,7 +22,11 @@
 				    background-size: cover;
 				    min-height: 100vh;
 				    background-position: center;">
-		    <nav class="navbar navbar-expand-lg navbar-light rounded m-3"style="background-color: rgb(67 139 211 / 52%);">
+		    <nav class="navbar 
+		    			navbar-expand-lg 
+		    			navbar-light 
+		    			rounded 
+		    			m-3"style="background-color: rgb(67 139 211 / 52%);">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			      <span class="navbar-toggler-icon"></span>
@@ -43,9 +47,15 @@
 				</div>
 			</div>
 		</nav>
-<h1>Create a new task</h1>
+		<div >
+<h1 style="text-align: center;">Create a new task</h1>
 	<div class="d-flex justify-content-center">
-		<form:form class="p-3" method="POST" action="/tasks/new" modelAttribute="task" style="background-color: rgb(67 139 211 / 52%);border-radius: 5px;">
+		<form:form 	class="p-3" 
+					method="POST" 
+					action="/tasks/new" 
+					modelAttribute="task" 
+					style=	"background-color: rgb(67 139 211 / 52%);
+							border-radius: 5px;">
 		 	<form:input type="hidden" value="${user.id}" path="creator"/>
 		        <p>
 		           	
@@ -55,7 +65,7 @@
 		            			required="true" 
 		            			type="text" 
 		            			path="name"
-		            			tyle="border-radius:5px; border:none;padding:4px;" />
+		            			style="border-radius:5px; border:none;padding:4px;" />
 		        </p>
 		        <p>
 		            <select class="form-select" 
@@ -86,6 +96,7 @@
 	        				class="btn text-white" 
 	        				value="Create"/>
 	    </form:form>
+	    </div>
     </div>
     </div>
     </div>

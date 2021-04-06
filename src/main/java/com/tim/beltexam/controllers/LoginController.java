@@ -46,7 +46,10 @@ public class LoginController {
     public String registerUser(@Valid 
 							   @ModelAttribute("user") User user, 
 							   BindingResult result, HttpSession session) {
+    	
     	userValidator.validate(user,result);
+    	userValidator.emailValidate(user, result);
+    	
     	if(result.hasErrors()) {
     		return"loginRegPage.jsp";
     	} else {
