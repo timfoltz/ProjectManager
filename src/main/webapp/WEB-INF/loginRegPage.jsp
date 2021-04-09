@@ -22,7 +22,8 @@
 				    background-size: cover;
 				    min-height:100vh;
 				    background-position: center;">
-		<h1 class="display-1 text-center" style="text-shadow: 1px 1px 1px gray; font-weight: 400;" >Get it done!</h1>
+		<h1 class="display-1 text-center rounded col-lg-4 mx-auto" style="text-shadow: 1px 1px 1px gray; font-weight: 400; background-color: rgb(255 255 255 / 36%)" >Get it done!</h1>
+		<p class="text-center rounded" style="background-color: rgb(67 139 211 / 75%); font-weight:bold" >Get it done is a Java Spring Boot application with a relational database in MySQL. Bootstrap was used for about 50% of the styling, the other was custom css. Please register, or login if you are registered, to see the features of the application.</p>
 		<div class="row"> 
 		    <div class="col-lg-4 mt-4 p-5 mx-auto">
 		    <div style="background-color: rgb(67 139 211 / 52%)" class="card">
